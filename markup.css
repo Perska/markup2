@@ -212,6 +212,12 @@ L + ratio { }
 	display: none;
 }
 
+.M-content-warning > .M-spoiler-label {
+	/*background: var(--T-yellow-bg, #FF08);*/
+	/*border-color: red;*/
+	idk;
+}
+
 /***********/
 /** Quote **/
 /***********/

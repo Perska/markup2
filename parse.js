@@ -472,7 +472,8 @@ class Markup_12y2 { constructor() {
 					OPEN('align', {align: a})
 				} break; case '\\spoiler': case '\\h': {
 					let [label="spoiler"] = rargs
-					OPEN('spoiler', {label})
+					let cw = /\bcw\b|🔞/i.test(label)
+					OPEN('spoiler', {label, cw})
 				} break; case '\\ruby': {
 					let [txt="true"] = rargs
 					OPEN('ruby', {text: txt})

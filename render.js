@@ -315,8 +315,10 @@ we should create our own fake bullet elements instead.*/
 			return e.firstChild
 		}.bind(𐀶`<ruby><span></span><rt>`), // I don't think we need <rp> since we're rendering for modern browsers...
 		
-		spoiler: function({label}) {
+		spoiler: function({label, cw}) {
 			let e = this()
+			if (cw)
+				e.classList.add('M-content-warning')
 			e.firstChild.textContent = label//.replace(/_/g, " ")
 			//todo: [12y1] maybe replace all underscores in args with spaces, during parsing?
 			return e.lastChild
