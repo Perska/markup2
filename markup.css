@@ -213,9 +213,16 @@ L + ratio { }
 }
 
 .M-content-warning > .M-spoiler-label {
-	/*background: var(--T-yellow-bg, #FF08);*/
+	background: var(--T-purple-bg, #FF08);
+	border-radius: 0px;
 	/*border-color: red;*/
-	idk;
+	/*idk;*/
+}
+.M-content-warning > .M-spoiler-label::before {
+	content: "⛔Show ";
+}
+.M-content-warning[open] > .M-spoiler-label::before {
+	content: "⛔Hide ";
 }
 
 /***********/
