@@ -213,7 +213,7 @@ L + ratio { }
 }
 
 .M-content-warning > .M-spoiler-label {
-	background: var(--T-purple-bg, #FF08);
+	background: var(--T-red-bg, #F888);
 	border-radius: 0px;
 	/*border-color: red;*/
 	/*idk;*/
