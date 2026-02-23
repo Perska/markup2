@@ -31,8 +31,11 @@ class Markup_Render_Dom { constructor() {
 	
 	let EMOTE_SOURCES = {
 		__proto__: null,
-		"url": (id, role) => id,
-		"discord": (id, role) => role == "sticker" ? `https://media.discordapp.net/stickers/${id}` : `https://cdn.discordapp.com/emojis/${id}`
+		"": (id, options) => options.pixel ? `sbs:image/${id}` : `sbs:image/${id}?size=128`,
+		"url": (id, options) => id,
+		"discordemote": (id, options) => `https://cdn.discordapp.com/emojis/${id}`,
+		"discordsticker": (id, options) => `https://media.discordapp.net/stickers/${id}`,
+		UNKNOWN: (id, options) => null
 	}
 	
 	function filter_url(url, thing) {
@@ -120,22 +123,18 @@ class Markup_Render_Dom { constructor() {
 		},
 
 		emote: function({source, name, id, role}) {
-			let url = "data:image/gif;base64,R0lGODlhAQABAIAAANDL5NDL5CH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
 			if (id == "") id = name
 			if (role == "") role = "emote"
 			let options
 			[id, options=""] = id.split("#")
-			let pixel = options.indexOf("p") != -1
-			if (id) {
-				if (source == "") {
-					url = pixel ? `sbs:image/${id}` : `sbs:image/${id}?size=128`
-				} else if (EMOTE_SOURCES[source]) {
-					url = EMOTE_SOURCES[source](id, role)
-				}
-			}
-			let src = filter_url(url, 'image')
+			let url, unknown = false
+			if (id) 
+				url = (EMOTE_SOURCES[source] || EMOTE_SOURCES.UNKNOWN)(id, {pixel: options.indexOf("p") != -1})
+			let src = filter_url(url || "data:image/gif;base64,R0lGODlhAQABAIAAANDL5NDL5CH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==", 'image')
 			let e = document.createElement('img')
 			e.classList.add('M-emote')
+			e.dataset.emotesource = source
+			if (url == null) e.dataset.emoteunknown = true
 			if (name!=null)
 				e.alt = e.title = name
 			e.tabIndex = 0
