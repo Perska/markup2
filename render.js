@@ -122,14 +122,18 @@ class Markup_Render_Dom { constructor() {
 			return e
 		},
 
-		emote: function({source, name, id, role}) {
+		emote: function({source, name, id, role, filter}, filter2) {
 			if (id == "") id = name
 			if (role == "") role = "emote"
 			let options
 			[id, options=""] = id.split("#")
+			options+=(filter || "") + (filter2 || "")
+			let opt = {}
+			// Duplicate filters cancel out
+			options.split('').forEach(c=>opt[c] = !opt[c])
 			let url, unknown = false
 			if (id) 
-				url = (EMOTE_SOURCES[source] || EMOTE_SOURCES.UNKNOWN)(id, {pixel: options.indexOf("p") != -1})
+				url = (EMOTE_SOURCES[source] || EMOTE_SOURCES.UNKNOWN)(id, {pixel: opt["p"]})
 			let src = filter_url(url || "data:image/gif;base64,R0lGODlhAQABAIAAANDL5NDL5CH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==", 'image')
 			let e = document.createElement('img')
 			e.classList.add('M-emote')
@@ -165,7 +169,7 @@ class Markup_Render_Dom { constructor() {
 			e.style.setProperty('--size', size)
 			set_size('size', size * 16, size * 16)
 			e.src = src
-			options.split("").forEach(x => e.classList.add(`M-filter-${x}`))
+			Object.keys(opt).forEach(x => x ? e.classList.add(`M-filter-${x}`) : undefined)
 			// check whether the image is "available" (i.e. size is known) by looking at naturalHeight
 			// https://html.spec.whatwg.org/multipage/images.html#img-available
 			// this will happen here if the image is VERY cached, i guess
