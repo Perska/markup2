@@ -31,7 +31,7 @@ class Markup_Render_Dom { constructor() {
 	
 	let EMOTE_SOURCES = {
 		__proto__: null,
-		"": (id, options) => options.pixel ? `sbs:image/${id}` : `sbs:image/${id}?size=128`,
+		"": (id, options) => options.pixel ? `sbs:image/${id}` : `sbs:image/${id}?size=200`,
 		"url": (id, options) => id,
 		"discordemote": (id, options) => `https://cdn.discordapp.com/emojis/${id}`,
 		"discordsticker": (id, options) => `https://media.discordapp.net/stickers/${id}`,

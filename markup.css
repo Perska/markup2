@@ -119,7 +119,7 @@ L + ratio { }
 	height: auto;
 }	
 
-.Markup .M-emote {
+.Markup .M-emote, .M-emote {
 	display: inline-block;
 	object-fit: contain;
 	width: calc(var(--size)*var(--emote-size, 1.125em));
@@ -127,6 +127,7 @@ L + ratio { }
 	vertical-align: middle;
 	max-height: unset;
 	border: none;
+	margin-bottom: 0.125em;
 }
 
 .M-filter-h {
@@ -135,17 +136,17 @@ L + ratio { }
 .M-filter-v {
 	transform: scaleY(-1);
 }
-.M-filter-h.M-image-filter-v {
+.M-filter-h.M-filter-v {
 	transform: scaleX(-1) scaleY(-1);
 }
 .M-filter-r {
 	transform: rotate(90deg);
 }
 .M-filter-h.M-filter-r {
-	transform: scaleX(-1) rotate(90deg);
+	transform: rotate(90deg) scaleX(-1);
 }
 .M-filter-v.M-filter-r {
-	transform: scaleY(-1) rotate(90deg);
+	transform: rotate(90deg) scaleY(-1);
 }
 .M-filter-h.M-filter-v.M-filter-r {
 	transform: rotate(270deg);
